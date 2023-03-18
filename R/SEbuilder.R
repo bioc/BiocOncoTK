@@ -1,5 +1,4 @@
 #' @import GenomicFeatures
-#' @import magrittr 
 #' @export
 magrittr::`%>%`
 #' @importFrom dplyr tbl tbl_df select filter summarise n group_by src_tbls tbl_vars select_ group_by_

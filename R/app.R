@@ -57,7 +57,6 @@ print(nd)
 #' visualize aspects of MSIsensor/expression relationships
 #' @import ggplot2
 #' @importFrom dplyr filter
-#' @import magrittr
 #' @importFrom ggpubr ggarrange 
 #' @importFrom car avPlots
 #' @param tum a TCGA tumor code
@@ -110,6 +109,7 @@ ggscat_av = function (tumor, gene, titlepref = "", intrans = log10pl1(p = 1),
 #multiviz(indata=ex21_t33_wplate, inmeth=MASS::rlm)
 
 #' small app to survey MSIsensor against expression
+#' @import MASS
 #' @rawNamespace import("shiny", except=c("dataTableOutput", "renderDataTable"))
 #' @param df a data.frame instance
 #' @param inmeth a method for geom_smooth

@@ -8,7 +8,7 @@
 S4Vectors DataFrame instance
 }
 \source{
-\url{"https://data.broadinstitute.org/ccle_legacy_data/pharmacological_profiling/CCLE_NP24.2009_Drug_data_2015.02.24.csv"}
+data.broadinstitute.org/ccle_legacy_data/pharmacological_profiling/CCLE_NP24.2009_Drug_data_2015.02.24.csv"
 }
 \usage{
 CCLE_DRUG_BROAD

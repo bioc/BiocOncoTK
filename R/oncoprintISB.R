@@ -60,7 +60,7 @@ isbVarsInTable = function(bq, tabletag = "Somatic_Mutation_calls") {
 
 #' obtain data frame with counts of mutation per gene symbol for selected tumor type
 #' @import bigrquery
-#' @import magrittr
+#' @rawNamespace import(magrittr, except=c("subtract"))
 #' @param tumor character(1) defaults to 'BRCA'
 #' @param limit numeric(1) defaults to NULL, appended as limit to number of records returned if non-null
 #' @param db character(1) BigQuery database name
