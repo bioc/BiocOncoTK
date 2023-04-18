@@ -106,10 +106,9 @@ ggscat_av = function (tumor, gene, titlepref = "", intrans = log10pl1(p = 1),
 }
  
 
-#multiviz(indata=ex21_t33_wplate, inmeth=MASS::rlm)
 
 #' small app to survey MSIsensor against expression
-#' @import MASS
+#' @importFrom MASS rlm
 #' @rawNamespace import("shiny", except=c("dataTableOutput", "renderDataTable"))
 #' @param df a data.frame instance
 #' @param inmeth a method for geom_smooth
