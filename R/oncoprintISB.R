@@ -51,7 +51,7 @@ isbVarsInTable = function(bq, tabletag = "Somatic_Mutation_calls") {
 }
 
 # prepare query for data frame with table of mutation counts per gene symbol
-# use query_exec( querystring, projectstring ) to retrieve table
+# use bq_project_query( query=querystring, x=projectstring ) to retrieve table
 .mutq <- function(studytag = "BRCA", limit=NULL, db="isb-cgc:tcga_201607_beta") {
   ans = sprintf("SELECT COUNT (DISTINCT(pb)) AS sampleN, hugosymbols AS gene FROM ( SELECT ParticipantBarcode AS pb, Hugo_Symbol AS hugosymbols FROM [%s.Somatic_Mutation_calls] WHERE Study = '%s' GROUP BY hugosymbols, pb) GROUP BY gene ORDER BY sampleN DESC", db, studytag)
   if (!is.null(limit)) ans = paste0(ans, paste0(" LIMIT ", limit))
@@ -67,7 +67,7 @@ isbVarsInTable = function(bq, tabletag = "Somatic_Mutation_calls") {
 #' @param project character(1) project code
 #' @note This function returns overall mutation count, and many individuals have multiple
 #' mutations recorded per gene.
-#' @return table as returned by bigrquery::query_exec
+#' @return table as returned by bigrquery::bq_project_query
 #' @examples
 #' if (interactive()) {
 #' requireNamespace("bigrquery")
@@ -78,7 +78,7 @@ isbVarsInTable = function(bq, tabletag = "Somatic_Mutation_calls") {
 TcgaMutCounts = function(tumor, limit=NULL, db="isb-cgc:tcga_201607_beta", project) {
  requireNamespace("bigrquery")
  qq = .mutq(studytag = tumor, limit=limit, db=db)
- bigrquery::query_exec(qq, project=project)
+ bigrquery::bq_project_query(query=qq, x=project)
 }
 
 .genesWmutInStudyDFq = function(studytag="OV", limit=NULL, db="isb-cgc:tcga_201607_beta") {
@@ -95,7 +95,7 @@ TcgaMutCounts = function(tumor, limit=NULL, db="isb-cgc:tcga_201607_beta", proje
   ans
 }
 #' Give count of individuals with a mutation recorded for selected tumor
-#' @importFrom bigrquery query_exec
+#' @importFrom bigrquery bq_project_query
 #' @param tumor character(1) defaults to 'BRCA'
 #' @param limit numeric(1) defaults to NULL, appended as limit to number of records returned if non-null
 #' @param db character(1) BigQuery database name
@@ -107,12 +107,12 @@ TcgaMutCounts = function(tumor, limit=NULL, db="isb-cgc:tcga_201607_beta", proje
 TcgaNIndWithAnyMut = function(tumor="BRCA", limit=NULL, db="isb-cgc:tcga_201607_beta", project) {
  qq = .participantBarcodesInTableInStudyq(tabletag = "Somatic_Mutation_calls",
            studytag = tumor, limit=limit, db=db)
- nrow(query_exec(qq, project=project))
+ nrow(bq_project_query(query=qq, x=project))
 }
 
 
 genesWmutInStudyDF = function(project, studytag="OV", limit=NULL, db="isb-cgc:tcga_201607_beta")
-  query_exec( .genesWmutInStudyDFq(studytag="OV", limit=NULL, db=db), project = project )
+  bq_project_query( query=.genesWmutInStudyDFq(studytag="OV", limit=NULL, db=db), x = project )
 
 mutsInGeneInStudyDF = function(bq, gene = "KRAS", studytag = "LUAD") {
   select = dplyr::select
