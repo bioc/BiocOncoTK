@@ -24,7 +24,6 @@ library(DBI)
 library(magrittr)
 library(pogos)
 library(org.Hs.eg.db)
-library(restfulSE)
 library(AnnotationHub)
 })
 })
@@ -88,7 +87,10 @@ onto_plot(oto, slot(st, "ontoTags"), fontsize=50)
 
 # Resource interfaces
 
-## PanCancer Atlas
+## PanCancer Atlas -- restfulSE is deprecated
+
+3/2024: The code here seems little used.  The
+BigQuery interfaces could be restored on request.
 
 In conjunction with `r Biocpkg("restfulSE")` which handles
 aspects of the interface to BigQuery, this package
@@ -670,7 +672,7 @@ instance.
 if (interactive()) {
  patelSE = loadPatel() # uses BiocFileCache
  patelSE
- assay(patelSE[1:4,1:3]) # in memory
+ SummarizedExperiment::assay(patelSE[1:4,1:3]) # in memory
 }
 ```
 
@@ -691,7 +693,7 @@ Bioconductor-sponsored representation will be introduced as soon as possible.
 if (rhdf5client::check_hsds()) {
  darmSE = BiocOncoTK::darmGBMcls  # count_lstpm from CONQUER
  darmSE
- assay(darmSE)  # out of memory
+ SummarizedExperiment::assay(darmSE)  # out of memory
 }
 ```
 
